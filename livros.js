@@ -1,10 +1,15 @@
 const express = require("express")
 const router = express.Router()
+const cors = require("cors")
+
+const conectDatabase = require('./bancoDeDados')
+conectDatabase()
 
 const Livro = require('./livroModel')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const porta = 3030;
 
@@ -18,12 +23,12 @@ async function mostrarLivro(request, response) {
 
         response.json(getLivro)
     } catch (error) {
-        console.log(erro)
+        console.log(error)
     }
 }
 
 async function criarLivro(request, response) {
-    const newLivro = newLivro({
+    const newLivro = new Livro({
         name: request.body.name,
         author: request.body.author,
         category:request.body.category,
@@ -36,7 +41,7 @@ async function criarLivro(request, response) {
 
        response.status(201).json(livroCreated)
     } catch (error) {
-        console.log(erro)
+        console.log(error)
     }
 }
 
@@ -65,7 +70,7 @@ async function editarLivro(request, response) {
         response.status(200).json(livroUpdate)
 
     } catch (error) {
-        console.log(erro)
+        console.log(error)
     }
 }
 
@@ -75,7 +80,7 @@ async function deletarLivro(request, response) {
 
         response.json({mensagem: "Livro deletado com sucesso!"})
     } catch (error) {
-        console.log(erro)
+        console.log(error)
     }
 }
 

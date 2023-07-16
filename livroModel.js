@@ -14,7 +14,7 @@ const LivroSchema = new mongoose.Schema({
         required: true
     },
     num_pages: {
-        type: BigInt,
+        type: Number,
         required: true
     },
     deluxe: {
